@@ -1,4 +1,3 @@
-// app.js
 require("dotenv").config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -8,12 +7,11 @@ const Animal = require('./models/Animal');
 const app = express();
 app.use(bodyParser.json());
 
-// Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Error connecting to MongoDB', err));
 
-// Create a new animal
+
 app.post('/animals', async (req, res) => {
   try {
     const { name, species } = req.body;
@@ -25,7 +23,7 @@ app.post('/animals', async (req, res) => {
   }
 });
 
-// Get all animals
+
 app.get('/animals', async (req, res) => {
   try {
     const animals = await Animal.find();
@@ -35,7 +33,7 @@ app.get('/animals', async (req, res) => {
   }
 });
 
-// Get a single animal
+
 app.get('/animals/:id', async (req, res) => {
   try {
     const animal = await Animal.findById(req.params.id);
@@ -48,7 +46,7 @@ app.get('/animals/:id', async (req, res) => {
   }
 });
 
-// Update an animal
+
 app.put('/animals/:id', async (req, res) => {
   try {
     const { name, species } = req.body;
@@ -62,7 +60,7 @@ app.put('/animals/:id', async (req, res) => {
   }
 });
 
-// Delete an animal
+
 app.delete('/animals/:id', async (req, res) => {
   try {
     const animal = await Animal.findByIdAndDelete(req.params.id);
